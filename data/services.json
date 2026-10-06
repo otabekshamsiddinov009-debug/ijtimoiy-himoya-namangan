@@ -1,8 +1,40 @@
 {
   "services": [
-    { "id": "kunduzgi-parvarish", "name": "Kunduzgi parvarish", "color": "green", "description": "" },
-    { "id": "erta-aralashuv", "name": "Erta aralashuv", "color": "violet", "description": "" },
-    { "id": "yangi-kun", "name": "Yangi kun", "color": "orange", "description": "" }
+    {"id": "kunduzgi-parvarish", "name": "Kunduzgi parvarish", "color": "green", "description": ""},
+    {"id": "erta-aralashuv", "name": "Erta aralashuv", "color": "violet", "description": ""},
+    {"id": "yangi-kun", "name": "Yangi kun", "color": "orange", "description": ""}
   ],
-  "locations": []
+  "locations": [
+    {"service": "kunduzgi-parvarish", "name": "\"Умматалихўжаева Умида Муродилла қизи\" ЯТТ", "address": "Наманган вилояти, Чортоқ тумани", "lat": 41.130528, "lon": 71.78704, "district": "chortoq"},
+    {"service": "kunduzgi-parvarish", "name": "\"Меҳр макони\" МЧЖ", "address": "Наманган вилояти, Чортоқ тумани", "lat": 41.070736, "lon": 71.821976, "district": "chortoq"},
+    {"service": "kunduzgi-parvarish", "name": "\"Убайдуллаева Наргиза Тохиржоновна\" ЯТТ", "address": "Наманган вилояти, Янгиқўрғон тумани", "lat": 41.212581, "lon": 71.723983, "district": "yangiqorgon"},
+    {"service": "kunduzgi-parvarish", "name": "\"Абдурахманова Феруза Мухаммаджонова\" ЯТТ", "address": "Наманган вилояти, Уйчи тумани", "lat": 41.02659, "lon": 71.861582, "district": "uychi"},
+    {"service": "kunduzgi-parvarish", "name": "\"Каримова Надия Бахониддиновна\" ЯТТ", "address": "Наманган вилояти, Поп тумани", "lat": 40.85961, "lon": 71.062555, "district": "pop"},
+    {"service": "kunduzgi-parvarish", "name": "\"Юсупова Нодира Мамитхановна\" ЯТТ", "address": "Наманган вилояти, Наманган тумани", "lat": 40.934848, "lon": 71.758107, "district": "namangantuman"},
+    {"service": "kunduzgi-parvarish", "name": "\"Атабаева Наргиза Набижановна\" ЯТТ", "address": "Наманган вилояти, Давлатобод тумани", "lat": 41.012182, "lon": 71.567341, "district": "davlatobod"},
+    {"service": "kunduzgi-parvarish", "name": "\"Абдуғаниев Мухаммадсаид Вали ўғли\" ЯТТ", "address": "Наманган вилояти, Наманган шаҳри", "lat": 40.993069, "lon": 71.649367, "district": "city"},
+    {"service": "kunduzgi-parvarish", "name": "\"Муминова Мунаввар Тургунбоевна\" ЯТТ", "address": "Наманган вилояти, Наманган шаҳри", "lat": 40.993069, "lon": 71.649367, "district": "city"},
+    {"service": "kunduzgi-parvarish", "name": "\"Меҳрли юракчалар\" МЧЖ", "address": "Наманган вилояти, Учқўрғон тумани", "lat": 41.138502, "lon": 72.10026, "district": "uchqorgon"},
+    {"service": "kunduzgi-parvarish", "name": "\"Деҳқанова Умидажон Савридиновна\" ЯТТ", "address": "Наманган вилояти, Косонсой тумани", "lat": 41.043656, "lon": 71.584583, "district": "kosonsoy"},
+    {"service": "kunduzgi-parvarish", "name": "\"Розиқов Абдурасул Жўрабоевич\" ЯТТ", "address": "Наманган вилояти, Косонсой тумани", "lat": 41.2228, "lon": 71.530241, "district": "kosonsoy"},
+    {"service": "kunduzgi-parvarish", "name": "\"Абдуллаева Муаззам Илхом қизи\" ЯТТ", "address": "Наманган вилояти, Янги Наманган тумани", "lat": 41.044255, "lon": 71.627861, "district": "yanginamangan"},
+    {"service": "kunduzgi-parvarish", "name": "\"Илхомжонова Руҳшонабону Илхомжон қизи\" ЯТТ", "address": "Наманган вилояти, Норин тумани", "lat": 40.934459, "lon": 71.986441, "district": "norin"},
+    {"service": "kunduzgi-parvarish", "name": "\"Мамадалиев Элёр Икромович\" ЯТТ", "address": "Наманган вилояти, Чуст тумани", "lat": 41.009197, "lon": 71.094152, "district": "chust"},
+    {"service": "kunduzgi-parvarish", "name": "\"Жўраева Диёра Бахтиёровна\" ЯТТ", "address": "Наманган вилояти, Чуст тумани", "lat": 40.979531, "lon": 71.226949, "district": "chust"},
+    {"service": "kunduzgi-parvarish", "name": "\"Мадаминова Юлдуз Фарход қизи\" ЯТТ", "address": "Наманган вилояти, Чуст тумани", "lat": 41.020997, "lon": 71.214884, "district": "chust"},
+    {"service": "kunduzgi-parvarish", "name": "\"Қарабаева Марғуба Олимжоновна\" ЯТТ", "address": "Наманган вилояти, Мингбулоқ тумани", "lat": 40.854757, "lon": 71.45408, "district": "mingbuloq"},
+    {"service": "kunduzgi-parvarish", "name": "\"Холбоев Дилшод Нарзуллаевич\" ЯТТ", "address": "Наманган вилояти, Наманган тумани", "lat": 40.898269, "lon": 71.560271, "district": "namangantuman"},
+    {"service": "kunduzgi-parvarish", "name": "\"Анварбекова Ирода Аброрбек қизи\" ЯТТ", "address": "Наманган вилояти, Наманган тумани", "lat": 40.934543, "lon": 71.611357, "district": "namangantuman"},
+    {"service": "kunduzgi-parvarish", "name": "\"Абдуқаххарова Дилноза Отабек қизи\" ЯТТ", "address": "Наманган вилояти, Янгиқўрғон тумани", "lat": 41.170337, "lon": 71.734019, "district": "yangiqorgon"},
+    {"service": "kunduzgi-parvarish", "name": "\"Бойтуманова Шодия Анвар қизи\" ЯТТ", "address": "Наманган вилояти, Мингбулоқ тумани", "lat": 40.854354, "lon": 71.493768, "district": "mingbuloq"},
+    {"service": "kunduzgi-parvarish", "name": "\"Бадалов Авазбек Рустамжонович\" ЯТТ", "address": "Наманган вилояти, Тўрақўрғон тумани", "lat": 40.998059, "lon": 71.498906, "district": "toraqorgon"},
+    {"service": "kunduzgi-parvarish", "name": "\"Хусанова Рисолат Абдуллаевна\" ЯТТ", "address": "Наманган вилояти, Учқўрғон тумани", "lat": 41.049924, "lon": 72.010534, "district": "uchqorgon"},
+    {"service": "kunduzgi-parvarish", "name": "\"Суфихужаев Абдукаюмхон Муталибович\" ЯТТ", "address": "Наманган вилояти, Косонсой тумани", "lat": 41.268349, "lon": 71.587547, "district": "kosonsoy"},
+    {"service": "kunduzgi-parvarish", "name": "\"Темирова Шохиста Ғуломжон қизи\" ЯТТ", "address": "Наманган вилояти, Янгиқўрғон тумани", "lat": 41.289499, "lon": 71.681611, "district": "yangiqorgon"},
+    {"service": "kunduzgi-parvarish", "name": "\"Холмирзаева Мубина Бобир қизи\" ЯТТ", "address": "Наманган вилояти, Учқўрғон тумани", "lat": 41.084003, "lon": 72.08586, "district": "uchqorgon"},
+    {"service": "kunduzgi-parvarish", "name": "\"Ортиқов Рахматжон Бокижонович\" ЯТТ", "address": "Наманган вилояти, Поп тумани", "lat": 40.890237, "lon": 71.106999, "district": "pop"},
+    {"service": "kunduzgi-parvarish", "name": "\"Абдуқаххарова Дилноза Отабек қизи\" ЯТТ", "address": "Наманган вилояти, Янгиқўрғон тумани", "lat": 41.282362, "lon": 71.825206, "district": "yangiqorgon"},
+    {"service": "kunduzgi-parvarish", "name": "\"Арифбаев Музаффар Солимович\" Логомед", "address": "Наманган вилояти, Наманган шаҳри", "lat": 40.991956, "lon": 71.680355, "district": "city"},
+    {"service": "kunduzgi-parvarish", "name": "\"Махмудова Азизахон Иброхимжон қизи\" ЯТТ", "address": "Наманган вилояти, Норин тумани", "lat": 40.916802, "lon": 72.097474, "district": "norin"}
+  ]
 }
