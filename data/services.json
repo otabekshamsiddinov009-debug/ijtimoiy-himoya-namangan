@@ -52,6 +52,7 @@
     {"service": "erta-aralashuv", "name": "\"Тураббаева Нигора Анвар қизи\" ЯТТ", "address": "Наманган вилояти, Наманган тумани", "lat": 40.930709, "lon": 71.60169, "district": "namangantuman"},
     {"service": "erta-aralashuv", "name": "\"Муҳаббат Ясин\" МЧЖ", "address": "Наманган вилояти, Чуст тумани", "lat": 40.989182, "lon": 71.228902, "district": "chust"},
     {"service": "erta-aralashuv", "name": "\"Кушон уруғлари\" МЧЖ", "address": "Наманган вилояти, Косонсой тумани", "lat": 41.206443, "lon": 71.53855, "district": "kosonsoy"},
-    {"service": "erta-aralashuv", "name": "\"Соғлом ҳаётга қадам ёшлик баҳори\" МЧЖ", "address": "Наманган вилояти, Янги Наманган тумани", "lat": 41.044255, "lon": 71.627861, "district": "yanginamangan"}
+    {"service": "erta-aralashuv", "name": "\"Соғлом ҳаётга қадам ёшлик баҳори\" МЧЖ", "address": "Наманган вилояти, Янги Наманган тумани", "lat": 41.044255, "lon": 71.627861, "district": "yanginamangan"},
+    {"service": "erta-aralashuv", "name": "\"Фирдавс лого сентр\" МЧЖ", "address": "Наманган вилояти, Давлатобод тумани", "lat": 41.000551, "lon": 71.608745, "district": "davlatobod"}
   ]
 }
