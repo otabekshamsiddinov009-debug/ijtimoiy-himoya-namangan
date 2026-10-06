@@ -36,6 +36,8 @@
     {"service": "kunduzgi-parvarish", "name": "\"Ортиқов Рахматжон Бокижонович\" ЯТТ", "address": "Наманган вилояти, Поп тумани", "lat": 40.890237, "lon": 71.106999, "district": "pop"},
     {"service": "kunduzgi-parvarish", "name": "\"Абдуқаххарова Дилноза Отабек қизи\" ЯТТ", "address": "Наманган вилояти, Янгиқўрғон тумани", "lat": 41.282362, "lon": 71.825206, "district": "yangiqorgon"},
     {"service": "kunduzgi-parvarish", "name": "\"Арифбаев Музаффар Солимович\" Логомед", "address": "Наманган вилояти, Наманган шаҳри", "lat": 40.991956, "lon": 71.680355, "district": "city"},
-    {"service": "kunduzgi-parvarish", "name": "\"Махмудова Азизахон Иброхимжон қизи\" ЯТТ", "address": "Наманган вилояти, Норин тумани", "lat": 40.916802, "lon": 72.097474, "district": "norin"}
+    {"service": "kunduzgi-parvarish", "name": "\"Махмудова Азизахон Иброхимжон қизи\" ЯТТ", "address": "Наманган вилояти, Норин тумани", "lat": 40.916802, "lon": 72.097474, "district": "norin"},
+    {"service": "tizim-tashkilotlari", "name": "Kichik hajmli bolalar uyi", "address": "Namangan viloyati, To'raqo'rg'on tumani", "lat": 40.993212, "lon": 71.49407, "district": "toraqorgon"},
+    {"service": "tizim-tashkilotlari", "name": "Pop nogironligi bo'lgan shaxslar uchun erkaklar \"G'amxo'rlik\" markazi", "address": "Namangan viloyati, Pop tumani", "lat": 40.857817, "lon": 71.017404, "district": "pop"}
   ]
 }
