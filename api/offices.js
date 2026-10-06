@@ -1,15 +1,15 @@
-// Searches Yandex's organization database (Places API) for social protection offices
+// Searches Yandex's organization database (Places API) for "Inson" social services centres
 // in Namangan region. Runs on Vercel so the search key never reaches the browser.
 // The CDN caches a successful answer for 24 hours, so Yandex is queried about once a day.
 
 const BBOX = '70.50,40.50~72.30,41.60'; // Namangan region, lon,lat~lon,lat
 const QUERIES = [
-  'Ijtimoiy himoya',
-  'Ижтимоий ҳимоя',
-  'Социальная защита населения',
   'Inson ijtimoiy xizmatlar markazi',
+  'Инсон ижтимоий хизматлар маркази',
   'Центр социальных услуг Инсон',
-  'Ijtimoiy himoya milliy agentligi'
+  'Inson markazi',
+  'Ijtimoiy himoya',
+  'Ижтимоий ҳимоя'
 ];
 
 async function search(key, text) {

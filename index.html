@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ijtimoiy himoya — Namangan</title>
-<meta name="description" content="Namangan viloyatidagi ijtimoiy himoya bo'limlari va xizmatlari xaritada: manzil, telefon, ish vaqti va yo'nalish.">
+<meta name="description" content="Namangan viloyatidagi &quot;Inson&quot; ijtimoiy xizmatlar markazlari va ijtimoiy xizmatlar xaritada: manzil, telefon, ish vaqti va yo'nalish.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap">
@@ -211,7 +211,7 @@ a { color: var(--primary); }
     </div>
     <div class="brand">
       <div class="brand-title">Ijtimoiy himoya xaritasi</div>
-      <div class="brand-sub">Namangan viloyati · bo'limlar va xizmatlar</div>
+      <div class="brand-sub">Namangan viloyati · "Inson" markazlari va xizmatlar</div>
     </div>
   </header>
 
@@ -263,8 +263,8 @@ a { color: var(--primary); }
 'use strict';
 
 const REGION_CENTER = [41.0, 71.55];
-// Keeps only Yandex results whose name or category is about social protection
-const RELEVANT = /himoya|химоя|социальн[а-я]*защит|защит[а-я]*населен|социальн[а-я]*служб|социальн[а-я]*услуг|инсон|inson|ijtimoiyxizmat|ижтимоийхизмат/;
+// Keeps only Yandex results that are "Inson" social services centres (checked on the name)
+const RELEVANT = /инсон|inson|ijtimoiyxizmatlarmarkaz|ижтимоийхизматлармарказ|центр[а-я]*социальныхуслуг/;
 
 // Yandex placemark colours (preset names) and their hex values for the chips and list dots
 const COLOR_HEX = {
@@ -275,7 +275,7 @@ const COLOR_HEX = {
 const SELECTED_PRESET = 'islands#redDotIcon';
 
 // Type 1 is built in (found on Yandex); the services come from data/services.json
-const OFFICE_TYPE = { id: 'office', name: "Ijtimoiy himoya bo'limlari", short: "Bo'limlar", color: 'blue', description: '' };
+const OFFICE_TYPE = { id: 'office', name: '"Inson" Ijtimoiy xizmatlar markazi', short: '"Inson" Ijtimoiy xizmatlar markazi', color: 'blue', description: '' };
 let TYPES = [OFFICE_TYPE];
 const typeOf = id => TYPES.find(t => t.id === id) || OFFICE_TYPE;
 const typeOrder = id => { const i = TYPES.findIndex(t => t.id === id); return i < 0 ? 99 : i; };
@@ -383,7 +383,7 @@ function collectOffices(features) {
       url: m.url || '',
       cats: (m.Categories || []).map(x => x.name).filter(Boolean)
     };
-    if (!RELEVANT.test(squash(norm(it.name + ' ' + it.cats.join(' '))))) continue;
+    if (!RELEVANT.test(squash(norm(it.name)))) continue;
     let dist = districtOf(it.address) || districtOf(p.description);
     if (!dist || dist === 'city') dist = districtFromName(it.name) || dist;
     if (!dist && !mentionsNamangan(it.address) && !mentionsNamangan(p.description)) continue;   // outside the region
@@ -425,7 +425,7 @@ function normalizeServices(data) {
 function describeError(status) {
   if (status === 403) return "Yandex qidiruv kaliti noto'g'ri yoki hali faollashmagan.";
   if (status === 429) return "Yandex so'rovlar limiti tugadi. Keyinroq qayta urinib ko'ring.";
-  return "Bo'limlar ro'yxatini Yandex'dan olib bo'lmadi. Keyinroq qayta urinib ko'ring.";
+  return "\"Inson\" markazlari ro'yxatini Yandex'dan olib bo'lmadi. Keyinroq qayta urinib ko'ring.";
 }
 
 /* ───────── State ───────── */
@@ -520,10 +520,10 @@ function renderSelect() {
 
 function renderStatus() {
   const o = state.offices, parts = [];
-  if (o.status === 'ok') parts.push(`Bo'limlar: ${o.items.length} (Yandex, ${fmtTime(o.fetchedAt)})`);
-  else if (o.status === 'loading') parts.push("Bo'limlar qidirilmoqda…");
-  else if (o.status === 'nokey') parts.push("Bo'limlar ro'yxati sozlanmagan");
-  else parts.push("Bo'limlar yuklanmadi");
+  if (o.status === 'ok') parts.push(`\"Inson\" markazlari: ${o.items.length} (Yandex, ${fmtTime(o.fetchedAt)})`);
+  else if (o.status === 'loading') parts.push("\"Inson\" markazlari qidirilmoqda…");
+  else if (o.status === 'nokey') parts.push("\"Inson\" markazlari ro'yxati sozlanmagan");
+  else parts.push("\"Inson\" markazlari yuklanmadi");
   if (state.services.status === 'ok') parts.push(`Xizmatlar: ${state.services.items.length} ta manzil`);
   else if (state.services.status === 'error') parts.push('Xizmatlar yuklanmadi');
   statusEl.textContent = parts.join(' · ');
@@ -532,12 +532,12 @@ function renderStatus() {
 function officeStateHtml() {
   const o = state.offices;
   if (o.status === 'loading') {
-    return `<div class="notice"><div class="loading-row"><div class="spinner"></div><span>Bo'limlar qidirilmoqda…</span></div></div>`;
+    return `<div class="notice"><div class="loading-row"><div class="spinner"></div><span>\"Inson\" markazlari qidirilmoqda…</span></div></div>`;
   }
   if (o.status === 'nokey') {
     if (state.type !== 'office') return '';
     return `<div class="notice">
-      <p>Bo'limlar ro'yxati hozircha mavjud emas. Xaritadagi qidiruv maydoniga «Ijtimoiy himoya» deb yozib izlashingiz mumkin.</p>
+      <p>\"Inson\" markazlari ro'yxati hozircha mavjud emas. Xaritadagi qidiruv maydoniga «Inson ijtimoiy xizmatlar markazi» deb yozib izlashingiz mumkin.</p>
       <p class="muted">Sayt egasi uchun: Vercel loyiha sozlamalarida <code>YANDEX_SEARCH_KEY</code> o'zgaruvchisini qo'shing va saytni qayta joylang.</p></div>`;
   }
   return `<div class="notice error"><p>${esc(o.error)}</p>
@@ -550,9 +550,9 @@ function emptyHtml() {
     return `<div class="notice"><p>«${esc(t.name)}» xizmati manzillari tez orada qo'shiladi.</p></div>`;
   }
   const where = state.district === 'all' ? 'Namangan viloyatida' : `${DIST_NAME[state.district]} hududida`;
-  const what = !t ? "bo'lim yoki xizmat" : t.id === 'office' ? "ijtimoiy himoya bo'limi" : `«${t.name}» xizmati`;
+  const what = !t ? 'markaz yoki xizmat' : t.id === 'office' ? '\"Inson\" ijtimoiy xizmatlar markazi' : `«${t.name}» xizmati`;
   const hint = t && t.id === 'office'
-    ? `<p class="muted">Yandex bazasida bo'lim boshqa nom bilan yozilgan bo'lishi mumkin. Xaritani yaqinlashtirib, binolarni tekshirib ko'ring.</p>` : '';
+    ? `<p class="muted">Yandex bazasida markaz boshqa nom bilan yozilgan bo'lishi mumkin. Xaritani yaqinlashtirib, binolarni tekshirib ko'ring.</p>` : '';
   return `<div class="notice"><p>${esc(where)} ${esc(what)} topilmadi${state.q ? " (qidiruv bo'yicha)" : ''}.</p>${hint}</div>`;
 }
 
