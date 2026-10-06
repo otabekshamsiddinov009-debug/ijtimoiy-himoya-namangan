@@ -1,0 +1,8 @@
+{
+  "services": [
+    { "id": "kunduzgi-parvarish", "name": "Kunduzgi parvarish", "color": "green", "description": "" },
+    { "id": "erta-aralashuv", "name": "Erta aralashuv", "color": "violet", "description": "" },
+    { "id": "yangi-kun", "name": "Yangi kun", "color": "orange", "description": "" }
+  ],
+  "locations": []
+}

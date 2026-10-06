@@ -13,6 +13,25 @@ Add these under **Project → Settings → Environment Variables**, then redeplo
 
 Keys come from https://developer.tech.yandex.ru. In the JavaScript API key's **HTTP Referer** restriction, add the site's domain (for example `ijtimoiy-himoya-namangan.vercel.app`). Leave the search key without a Referer restriction: it is used only on Vercel's server and never reaches the browser.
 
+## Service locations
+
+The three services (Kunduzgi parvarish, Erta aralashuv, Yangi kun) are listed in `data/services.json`. Each location is one entry in `locations`:
+
+```json
+{
+  "service": "erta-aralashuv",
+  "name": "Chust tumani erta aralashuv xizmati",
+  "address": "Namangan viloyati, Chust tumani, Mustaqillik ko'chasi, 12",
+  "lat": 40.9974,
+  "lon": 71.2151,
+  "phones": ["+998 69 000-00-00"],
+  "hours": "Du–Ju 9:00–18:00",
+  "district": "chust"
+}
+```
+
+`service` must be one of the service `id`s at the top of the file. `lat`/`lon` are required (copy them from Yandex Maps). `district` is optional; without it the district is read from the address. District ids: `city`, `davlatobod`, `yanginamangan`, `namangantuman`, `chortoq`, `chust`, `kosonsoy`, `mingbuloq`, `norin`, `pop`, `toraqorgon`, `uchqorgon`, `uychi`, `yangiqorgon`. A service's `description` (one sentence) is shown in the details panel when it is filled in.
+
 ## How it works
 
 - `index.html` — the page.
