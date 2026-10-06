@@ -354,6 +354,14 @@ function districtOf(address) {
   return null;
 }
 const mentionsNamangan = address => adminParts(address).some(p => /наманган|namangan/.test(p));
+// Yandex sometimes gives only "Namangan, <street>" for a district centre whose name says
+// "Yangi Namangan tumani …". Used only when the address names no district.
+function districtFromName(name) {
+  const s = squash(norm(name));
+  if (!/tuman|туман|район|rayon/.test(s)) return null;
+  const d = DISTRICTS.find(d => d.stems.some(st => s.includes(st)));
+  return d ? d.id : null;
+}
 
 /* ───────── Data: offices from Yandex ───────── */
 function collectOffices(features) {
@@ -376,7 +384,8 @@ function collectOffices(features) {
       cats: (m.Categories || []).map(x => x.name).filter(Boolean)
     };
     if (!RELEVANT.test(squash(norm(it.name + ' ' + it.cats.join(' '))))) continue;
-    const dist = districtOf(it.address) || districtOf(p.description);
+    let dist = districtOf(it.address) || districtOf(p.description);
+    if (!dist || dist === 'city') dist = districtFromName(it.name) || dist;
     if (!dist && !mentionsNamangan(it.address) && !mentionsNamangan(p.description)) continue;   // outside the region
     it.district = dist || 'other';
     byId.set(id, it);
