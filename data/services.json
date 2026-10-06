@@ -47,6 +47,11 @@
     {"service": "yangi-kun", "name": "\"Хенкел азия\" МЧЖ", "address": "Наманган вилояти, Наманган тумани", "lat": 40.931309, "lon": 71.584173, "district": "namangantuman"},
     {"service": "yangi-kun", "name": "\"Норин ҳаёт нури\" МЧЖ", "address": "Наманган вилояти, Норин тумани", "lat": 40.925038, "lon": 72.131056, "district": "norin"},
     {"service": "yangi-kun", "name": "\"Фурқатилла траде\" МЧЖ", "address": "Наманган вилояти, Чортоқ тумани", "lat": 41.075116, "lon": 71.838725, "district": "chortoq"},
-    {"service": "yangi-kun", "name": "\"Нажот ҳаёт\" МЧЖ", "address": "Наманган вилояти, Учқўрғон тумани", "lat": 41.014481, "lon": 72.102409, "district": "uchqorgon"}
+    {"service": "yangi-kun", "name": "\"Нажот ҳаёт\" МЧЖ", "address": "Наманган вилояти, Учқўрғон тумани", "lat": 41.014481, "lon": 72.102409, "district": "uchqorgon"},
+    {"service": "erta-aralashuv", "name": "\"Имомова Мадина Муқим қизи\" ЯТТ", "address": "Наманган вилояти, Норин тумани", "lat": 40.904935, "lon": 72.113389, "district": "norin"},
+    {"service": "erta-aralashuv", "name": "\"Тураббаева Нигора Анвар қизи\" ЯТТ", "address": "Наманган вилояти, Наманган тумани", "lat": 40.930709, "lon": 71.60169, "district": "namangantuman"},
+    {"service": "erta-aralashuv", "name": "\"Муҳаббат Ясин\" МЧЖ", "address": "Наманган вилояти, Чуст тумани", "lat": 40.989182, "lon": 71.228902, "district": "chust"},
+    {"service": "erta-aralashuv", "name": "\"Кушон уруғлари\" МЧЖ", "address": "Наманган вилояти, Косонсой тумани", "lat": 41.206443, "lon": 71.53855, "district": "kosonsoy"},
+    {"service": "erta-aralashuv", "name": "\"Соғлом ҳаётга қадам ёшлик баҳори\" МЧЖ", "address": "Наманган вилояти, Янги Наманган тумани", "lat": 41.044255, "lon": 71.627861, "district": "yanginamangan"}
   ]
 }
