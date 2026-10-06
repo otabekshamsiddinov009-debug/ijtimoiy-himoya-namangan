@@ -434,6 +434,17 @@ const state = {
   offices: { status: 'loading', error: '', fetchedAt: 0, items: [] },
   services: { status: 'loading', items: [] }
 };
+// Yandex entries the site owner chose to leave off the map (data/hidden.json), matched by name + address
+let HIDDEN = [];
+const hiddenReady = getJson('/data/hidden.json').then(r => {
+  if (r.ok && r.body && Array.isArray(r.body.offices)) {
+    HIDDEN = r.body.offices.filter(h => h && h.name)
+      .map(h => ({ name: squash(norm(h.name)), address: squash(norm(h.address || '')) }));
+  }
+}, () => {});
+const isHidden = it => HIDDEN.some(h =>
+  squash(norm(it.name)) === h.name && (!h.address || squash(norm(it.address)).includes(h.address)));
+
 let ALL = [];
 function rebuild() {
   ALL = [...state.offices.items, ...state.services.items].sort((a, b) =>
@@ -456,8 +467,9 @@ async function loadOffices() {
   let r;
   try { r = await getJson('/api/offices'); }
   catch { r = { status: 0, ok: false, body: null }; }
+  await hiddenReady;
   if (r.ok && r.body && Array.isArray(r.body.features)) {
-    o.items = collectOffices(r.body.features);
+    o.items = collectOffices(r.body.features).filter(it => !isHidden(it));
     o.fetchedAt = r.body.fetchedAt || Date.now();
     o.status = 'ok';
   } else if (r.status === 503 && r.body && r.body.error === 'nokey') {

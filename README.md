@@ -32,6 +32,14 @@ The three services (Kunduzgi parvarish, Erta aralashuv, Yangi kun) are listed in
 
 `service` must be one of the service `id`s at the top of the file. `lat`/`lon` are required (copy them from Yandex Maps). `district` is optional; without it the district is read from the address. District ids: `city`, `davlatobod`, `yanginamangan`, `namangantuman`, `chortoq`, `chust`, `kosonsoy`, `mingbuloq`, `norin`, `pop`, `toraqorgon`, `uchqorgon`, `uychi`, `yangiqorgon`. A service's `description` (one sentence) is shown in the details panel when it is filled in.
 
+## Hiding a Yandex entry
+
+To keep a centre found on Yandex off the map, add its name and address (exactly as the site shows them) to `data/hidden.json`:
+
+```json
+{ "offices": [ { "name": "Namangan shahri Inson Ijtimoiy xizmatlar markazi", "address": "Namangan, Xurriyat koʻchasi, 66" } ] }
+```
+
 ## How it works
 
 - `index.html` — the page.
