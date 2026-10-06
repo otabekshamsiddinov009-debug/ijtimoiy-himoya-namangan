@@ -46,6 +46,7 @@
     {"service": "yangi-kun", "name": "\"Янги кун парвариш\" МЧЖ", "address": "Наманган вилояти, Мингбулоқ тумани", "lat": 40.855374, "lon": 71.451065, "district": "mingbuloq"},
     {"service": "yangi-kun", "name": "\"Хенкел азия\" МЧЖ", "address": "Наманган вилояти, Наманган тумани", "lat": 40.931309, "lon": 71.584173, "district": "namangantuman"},
     {"service": "yangi-kun", "name": "\"Норин ҳаёт нури\" МЧЖ", "address": "Наманган вилояти, Норин тумани", "lat": 40.925038, "lon": 72.131056, "district": "norin"},
-    {"service": "yangi-kun", "name": "\"Фурқатилла траде\" МЧЖ", "address": "Наманган вилояти, Чортоқ тумани", "lat": 41.075116, "lon": 71.838725, "district": "chortoq"}
+    {"service": "yangi-kun", "name": "\"Фурқатилла траде\" МЧЖ", "address": "Наманган вилояти, Чортоқ тумани", "lat": 41.075116, "lon": 71.838725, "district": "chortoq"},
+    {"service": "yangi-kun", "name": "\"Нажот ҳаёт\" МЧЖ", "address": "Наманган вилояти, Учқўрғон тумани", "lat": 41.014481, "lon": 72.102409, "district": "uchqorgon"}
   ]
 }
