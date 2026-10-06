@@ -1,0 +1,12 @@
+{
+  "hide": [
+    { "name": "Namangan shahri Inson Ijtimoiy xizmatlar markazi", "address": "Namangan, Xurriyat koʻchasi, 66" }
+  ],
+  "edit": [
+    {
+      "match": { "name": "Inson", "address": "Namangan, Beshkapa 4-tor koʻchasi, 9" },
+      "name": "Namangan shahar \"Inson\" ijtimoiy xizmatlar markazi",
+      "address": "Namangan shahri, Baynalninal MFY, Nodira ko'chasi 9-uy"
+    }
+  ]
+}

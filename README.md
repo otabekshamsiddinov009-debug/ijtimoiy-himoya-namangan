@@ -32,13 +32,24 @@ The services (Kunduzgi parvarish, Erta aralashuv, Yangi kun, Tizim tashkilotlari
 
 `service` must be one of the service `id`s at the top of the file. `lat`/`lon` are required (copy them from Yandex Maps). `district` is optional; without it the district is read from the address. District ids: `city`, `davlatobod`, `yanginamangan`, `namangantuman`, `chortoq`, `chust`, `kosonsoy`, `mingbuloq`, `norin`, `pop`, `toraqorgon`, `uchqorgon`, `uychi`, `yangiqorgon`. A service's `description` (one sentence) is shown in the details panel when it is filled in.
 
-## Hiding a Yandex entry
+## Correcting Yandex entries
 
-To keep a centre found on Yandex off the map, add its name and address (exactly as the site shows them) to `data/hidden.json`:
+Inson centres come from Yandex. To change or remove one on the site (Yandex itself is not changed), edit `data/overrides.json`. Entries are matched by the name and address Yandex gives them, exactly as the site showed them before the change.
 
 ```json
-{ "offices": [ { "name": "Namangan shahri Inson Ijtimoiy xizmatlar markazi", "address": "Namangan, Xurriyat koʻchasi, 66" } ] }
+{
+  "hide": [ { "name": "Namangan shahri Inson Ijtimoiy xizmatlar markazi", "address": "Namangan, Xurriyat koʻchasi, 66" } ],
+  "edit": [
+    {
+      "match": { "name": "Inson", "address": "Namangan, Beshkapa 4-tor koʻchasi, 9" },
+      "name": "Namangan shahar \"Inson\" ijtimoiy xizmatlar markazi",
+      "address": "Namangan shahri, Baynalninal MFY, Nodira ko'chasi 9-uy"
+    }
+  ]
+}
 ```
+
+An `edit` can also set `phones` (a list), `hours`, `district` (an id from the list above) and `lat`/`lon` to move the pin. Anything not set keeps Yandex's value.
 
 ## How it works
 

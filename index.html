@@ -383,8 +383,13 @@ function collectOffices(features) {
       url: m.url || '',
       cats: (m.Categories || []).map(x => x.name).filter(Boolean)
     };
+    if (HIDE.some(k => matchesKey(it, k))) continue;
+    const edit = EDITS.find(e => matchesKey(it, e.key));
+    if (edit) applyEdit(it, edit.set);
     if (!RELEVANT.test(squash(norm(it.name)))) continue;
-    let dist = districtOf(it.address) || districtOf(p.description);
+    // An edited address replaces Yandex's, so Yandex's description is no longer consulted
+    let dist = (edit && DIST_INDEX[edit.set.district] !== undefined) ? edit.set.district
+      : districtOf(it.address) || (edit ? null : districtOf(p.description));
     if (!dist || dist === 'city') dist = districtFromName(it.name) || dist;
     if (!dist && !mentionsNamangan(it.address) && !mentionsNamangan(p.description)) continue;   // outside the region
     it.district = dist || 'other';
@@ -434,16 +439,27 @@ const state = {
   offices: { status: 'loading', error: '', fetchedAt: 0, items: [] },
   services: { status: 'loading', items: [] }
 };
-// Yandex entries the site owner chose to leave off the map (data/hidden.json), matched by name + address
-let HIDDEN = [];
-const hiddenReady = getJson('/data/hidden.json').then(r => {
-  if (r.ok && r.body && Array.isArray(r.body.offices)) {
-    HIDDEN = r.body.offices.filter(h => h && h.name)
-      .map(h => ({ name: squash(norm(h.name)), address: squash(norm(h.address || '')) }));
-  }
+// Owner's corrections to Yandex entries (data/overrides.json): "hide" removes an entry,
+// "edit" replaces its name / address / phones / hours / district / map point.
+// Entries are matched by their Yandex name + address.
+let HIDE = [], EDITS = [];
+const matchKey = (name, address) => ({ name: squash(norm(name)), address: squash(norm(address || '')) });
+const matchesKey = (it, k) => squash(norm(it.name)) === k.name && (!k.address || squash(norm(it.address)).includes(k.address));
+const overridesReady = getJson('/data/overrides.json').then(r => {
+  const b = (r.ok && r.body) || {};
+  HIDE = (Array.isArray(b.hide) ? b.hide : []).filter(h => h && h.name).map(h => matchKey(h.name, h.address));
+  EDITS = (Array.isArray(b.edit) ? b.edit : []).filter(e => e && e.match && e.match.name)
+    .map(e => ({ key: matchKey(e.match.name, e.match.address), set: e }));
 }, () => {});
-const isHidden = it => HIDDEN.some(h =>
-  squash(norm(it.name)) === h.name && (!h.address || squash(norm(it.address)).includes(h.address)));
+function applyEdit(it, set) {
+  if (set.name) it.name = String(set.name);
+  if (set.address) it.address = String(set.address);
+  if (Array.isArray(set.phones)) it.phones = set.phones.map(String).filter(Boolean);
+  if (set.hours) it.hours = String(set.hours);
+  if (Number.isFinite(Number(set.lat)) && Number.isFinite(Number(set.lon)) && set.lat !== '' && set.lon !== '') {
+    it.lat = Number(set.lat); it.lon = Number(set.lon);
+  }
+}
 
 let ALL = [];
 function rebuild() {
@@ -467,9 +483,9 @@ async function loadOffices() {
   let r;
   try { r = await getJson('/api/offices'); }
   catch { r = { status: 0, ok: false, body: null }; }
-  await hiddenReady;
+  await overridesReady;
   if (r.ok && r.body && Array.isArray(r.body.features)) {
-    o.items = collectOffices(r.body.features).filter(it => !isHidden(it));
+    o.items = collectOffices(r.body.features);
     o.fetchedAt = r.body.fetchedAt || Date.now();
     o.status = 'ok';
   } else if (r.status === 503 && r.body && r.body.error === 'nokey') {
