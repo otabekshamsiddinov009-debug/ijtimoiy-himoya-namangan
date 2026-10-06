@@ -2,7 +2,8 @@
   "services": [
     {"id": "kunduzgi-parvarish", "name": "Kunduzgi parvarish", "color": "green", "description": ""},
     {"id": "erta-aralashuv", "name": "Erta aralashuv", "color": "violet", "description": ""},
-    {"id": "yangi-kun", "name": "Yangi kun", "color": "orange", "description": ""}
+    {"id": "yangi-kun", "name": "Yangi kun", "color": "orange", "description": ""},
+    {"id": "tizim-tashkilotlari", "name": "Tizim tashkilotlari", "color": "brown", "description": ""}
   ],
   "locations": [
     {"service": "kunduzgi-parvarish", "name": "\"Умматалихўжаева Умида Муродилла қизи\" ЯТТ", "address": "Наманган вилояти, Чортоқ тумани", "lat": 41.130528, "lon": 71.78704, "district": "chortoq"},

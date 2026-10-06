@@ -15,7 +15,7 @@ Keys come from https://developer.tech.yandex.ru. In the JavaScript API key's **H
 
 ## Service locations
 
-The three services (Kunduzgi parvarish, Erta aralashuv, Yangi kun) are listed in `data/services.json`. Each location is one entry in `locations`:
+The services (Kunduzgi parvarish, Erta aralashuv, Yangi kun, Tizim tashkilotlari) are listed in `data/services.json`. Each location is one entry in `locations`:
 
 ```json
 {

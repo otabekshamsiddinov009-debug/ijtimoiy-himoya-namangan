@@ -559,10 +559,10 @@ function officeStateHtml() {
 function emptyHtml() {
   const t = state.type === 'all' ? null : typeOf(state.type);
   if (t && t.id !== 'office' && !ALL.some(i => i.type === t.id)) {
-    return `<div class="notice"><p>«${esc(t.name)}» xizmati manzillari tez orada qo'shiladi.</p></div>`;
+    return `<div class="notice"><p>«${esc(t.name)}» manzillari tez orada qo'shiladi.</p></div>`;
   }
   const where = state.district === 'all' ? 'Namangan viloyatida' : `${DIST_NAME[state.district]} hududida`;
-  const what = !t ? 'markaz yoki xizmat' : t.id === 'office' ? '\"Inson\" ijtimoiy xizmatlar markazi' : `«${t.name}» xizmati`;
+  const what = !t ? 'markaz yoki xizmat' : t.id === 'office' ? '\"Inson\" ijtimoiy xizmatlar markazi' : `«${t.name}» bo'yicha manzil`;
   const hint = t && t.id === 'office'
     ? `<p class="muted">Yandex bazasida markaz boshqa nom bilan yozilgan bo'lishi mumkin. Xaritani yaqinlashtirib, binolarni tekshirib ko'ring.</p>` : '';
   return `<div class="notice"><p>${esc(where)} ${esc(what)} topilmadi${state.q ? " (qidiruv bo'yicha)" : ''}.</p>${hint}</div>`;
