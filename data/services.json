@@ -38,6 +38,14 @@
     {"service": "kunduzgi-parvarish", "name": "\"Арифбаев Музаффар Солимович\" Логомед", "address": "Наманган вилояти, Наманган шаҳри", "lat": 40.991956, "lon": 71.680355, "district": "city"},
     {"service": "kunduzgi-parvarish", "name": "\"Махмудова Азизахон Иброхимжон қизи\" ЯТТ", "address": "Наманган вилояти, Норин тумани", "lat": 40.916802, "lon": 72.097474, "district": "norin"},
     {"service": "tizim-tashkilotlari", "name": "Kichik hajmli bolalar uyi", "address": "Namangan viloyati, To'raqo'rg'on tumani", "lat": 40.993212, "lon": 71.49407, "district": "toraqorgon"},
-    {"service": "tizim-tashkilotlari", "name": "Pop nogironligi bo'lgan shaxslar uchun erkaklar \"G'amxo'rlik\" markazi", "address": "Namangan viloyati, Pop tumani", "lat": 40.857817, "lon": 71.017404, "district": "pop"}
+    {"service": "tizim-tashkilotlari", "name": "Pop nogironligi bo'lgan shaxslar uchun erkaklar \"G'amxo'rlik\" markazi", "address": "Namangan viloyati, Pop tumani", "lat": 40.857817, "lon": 71.017404, "district": "pop"},
+    {"service": "yangi-kun", "name": "\"Кушон уруғлари\" МЧЖ", "address": "Наманган вилояти, Косонсой тумани", "lat": 41.206443, "lon": 71.53855, "district": "kosonsoy"},
+    {"service": "yangi-kun", "name": "\"Муҳаббат ясин\" МЧЖ", "address": "Наманган вилояти, Чуст тумани", "lat": 40.974644, "lon": 71.221872, "district": "chust"},
+    {"service": "yangi-kun", "name": "\"Мурувват макони\" МЧЖ", "address": "Наманган вилояти, Чортоқ тумани", "lat": 41.130745, "lon": 71.786471, "district": "chortoq"},
+    {"service": "yangi-kun", "name": "\"Адреналин медикал\" МЧЖ", "address": "Наманган вилояти, Поп тумани", "lat": 40.878011, "lon": 71.091238, "district": "pop"},
+    {"service": "yangi-kun", "name": "\"Янги кун парвариш\" МЧЖ", "address": "Наманган вилояти, Мингбулоқ тумани", "lat": 40.855374, "lon": 71.451065, "district": "mingbuloq"},
+    {"service": "yangi-kun", "name": "\"Хенкел азия\" МЧЖ", "address": "Наманган вилояти, Наманган тумани", "lat": 40.931309, "lon": 71.584173, "district": "namangantuman"},
+    {"service": "yangi-kun", "name": "\"Норин ҳаёт нури\" МЧЖ", "address": "Наманган вилояти, Норин тумани", "lat": 40.925038, "lon": 72.131056, "district": "norin"},
+    {"service": "yangi-kun", "name": "\"Фурқатилла траде\" МЧЖ", "address": "Наманган вилояти, Чортоқ тумани", "lat": 41.075116, "lon": 71.838725, "district": "chortoq"}
   ]
 }
