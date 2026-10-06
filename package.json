@@ -1,0 +1,9 @@
+{
+  "name": "ijtimoiy-himoya-namangan",
+  "private": true,
+  "type": "module",
+  "description": "Map of social protection (Ijtimoiy himoya) offices in Namangan region, from Yandex Maps data.",
+  "engines": {
+    "node": ">=18"
+  }
+}

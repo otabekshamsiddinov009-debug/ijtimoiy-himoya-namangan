@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ijtimoiy himoya — Namangan</title>
+<meta name="description" content="Namangan viloyatidagi ijtimoiy himoya bo'limlari xaritada: manzil, telefon, ish vaqti va yo'nalish.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one-screen app — sidebar (search, district filter, office list, details) + Yandex map */
+:root {
+  --bg: #EEF2F7;
+  --surface: #FFFFFF;
+  --surface-2: #F5F8FB;
+  --line: #D6DFEA;
+  --text: #152233;
+  --muted: #5B6B7F;
+  --primary: #1B4F91;
+  --primary-strong: #143D72;
+  --primary-soft: #E5EDF8;
+  --accent: #D9731C;
+  --danger: #B4372B;
+  --header: #1B4F91;
+  --on-dark: #FFFFFF;
+  --font: "Golos Text", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0E1622;
+    --surface: #152131;
+    --surface-2: #1A2839;
+    --line: #26374C;
+    --text: #E3EAF3;
+    --muted: #92A6BD;
+    --primary: #3B7BC8;
+    --primary-strong: #5B95DA;
+    --primary-soft: #1B2E46;
+    --accent: #F0913A;
+    --danger: #EF7A6E;
+    --header: #12253C;
+    color-scheme: dark;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { height: 100%; margin: 0; }
+body { font-family: var(--font); font-size: 14px; background: var(--bg); color: var(--text); }
+button, input, select { font: inherit; color: inherit; }
+a { color: var(--primary); }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px 16px; border-radius: 8px; border: 1.5px solid transparent;
+  font-weight: 600; font-size: .88rem; cursor: pointer; text-decoration: none;
+  transition: background-color .15s, border-color .15s;
+}
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-strong); }
+.btn-ghost { background: transparent; border-color: var(--line); color: var(--text); }
+.btn-ghost:hover { border-color: var(--primary); }
+.btn-block { flex: 1; }
+
+/* ── App shell ── */
+.app { display: flex; flex-direction: column; height: 100%; }
+.app-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; background: var(--header); color: var(--on-dark);
+  padding-top: calc(10px + env(safe-area-inset-top, 0px));
+  flex-shrink: 0;
+}
+.mark {
+  width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
+  display: grid; place-items: center; background: rgba(255,255,255,.14);
+}
+.brand { min-width: 0; }
+.brand-title { font-weight: 700; font-size: 1.02rem; line-height: 1.2; }
+.brand-sub { font-size: .78rem; opacity: .78; }
+
+.app-body { display: flex; flex: 1; min-height: 0; }
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 360px; flex-shrink: 0; min-width: 0; position: relative;
+  display: flex; flex-direction: column;
+  background: var(--surface); border-right: 1px solid var(--line);
+}
+.side-top { padding: 14px 16px 12px; display: grid; gap: 10px; border-bottom: 1px solid var(--line); }
+.search {
+  display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px;
+  border: 1.5px solid var(--line); border-radius: 8px; background: var(--surface-2);
+}
+.search:focus-within { border-color: var(--primary); }
+.search svg { color: var(--muted); flex-shrink: 0; }
+.search input { border: 0; outline: none; background: transparent; width: 100%; min-width: 0; }
+.search input::placeholder { color: var(--muted); }
+.select {
+  height: 40px; padding: 0 10px; border-radius: 8px;
+  border: 1.5px solid var(--line); background: var(--surface-2); width: 100%;
+}
+.select:focus { outline: none; border-color: var(--primary); }
+.status { font-size: .78rem; color: var(--muted); }
+
+.list { flex: 1; overflow-y: auto; min-height: 0; }
+.group-h {
+  position: sticky; top: 0; z-index: 1;
+  display: flex; justify-content: space-between; gap: 8px;
+  padding: 7px 16px; background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+  font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted);
+}
+.group-h span { font-variant-numeric: tabular-nums; }
+.office {
+  display: grid; gap: 3px; width: 100%; text-align: left;
+  padding: 11px 16px 11px 13px; background: none; cursor: pointer;
+  border: 0; border-left: 3px solid transparent; border-bottom: 1px solid var(--line);
+}
+.office:hover { background: var(--surface-2); }
+.office:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
+.office.active { background: var(--primary-soft); border-left-color: var(--accent); }
+.office-name { font-weight: 600; font-size: .92rem; line-height: 1.3; }
+.office-addr { font-size: .8rem; color: var(--muted); line-height: 1.4; }
+.office-phone { font-size: .8rem; color: var(--primary); font-variant-numeric: tabular-nums; }
+
+.notice { padding: 22px 18px; display: grid; gap: 12px; justify-items: start; line-height: 1.5; }
+.notice p { margin: 0; }
+.notice .muted { color: var(--muted); font-size: .85rem; }
+.notice.error p:first-child { color: var(--danger); font-weight: 600; }
+.notice code { font-size: .82rem; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
+.loading-row { display: flex; align-items: center; gap: 10px; color: var(--muted); }
+.spinner {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2.5px solid var(--line); border-top-color: var(--primary);
+  animation: spin .8s linear infinite; flex-shrink: 0;
+}
+.spinner.lg { width: 36px; height: 36px; border-width: 4px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Details panel ── */
+.info {
+  border-top: 1px solid var(--line); padding: 14px 16px 16px;
+  display: grid; gap: 10px; max-height: 50%; overflow-y: auto; flex-shrink: 0;
+  background: var(--surface);
+}
+.info-head { display: flex; align-items: flex-start; gap: 10px; }
+.info-head h2 { margin: 0; font-size: 1rem; line-height: 1.35; flex: 1; text-wrap: balance; }
+.info-close {
+  border: 0; background: none; cursor: pointer; color: var(--muted);
+  font-size: 1.3rem; line-height: 1; padding: 0 2px;
+}
+.info-cat { font-size: .78rem; color: var(--muted); margin-top: -4px; }
+.info-rows { margin: 0; display: grid; gap: 8px; }
+.info-rows div { display: grid; grid-template-columns: 76px 1fr; gap: 8px; }
+.info-rows dt { font-size: .72rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.info-rows dd { margin: 0; font-size: .86rem; line-height: 1.45; min-width: 0; overflow-wrap: anywhere; }
+.info-rows dd a { font-variant-numeric: tabular-nums; }
+.info-actions { display: flex; gap: 8px; }
+
+/* ── Map ── */
+.map-area { flex: 1; position: relative; min-width: 0; background: var(--bg); }
+#ymap { position: absolute; inset: 0; }
+.map-msg {
+  position: absolute; inset: 0; z-index: 5;
+  display: grid; place-items: center; padding: 24px; background: var(--bg);
+}
+.map-msg-box { max-width: 360px; display: grid; gap: 12px; justify-items: center; text-align: center; line-height: 1.5; }
+.map-msg-box p { margin: 0; }
+.map-msg-box .title { font-weight: 700; }
+.map-msg-box .muted { color: var(--muted); font-size: .86rem; }
+.map-msg-box code { font-size: .82rem; background: var(--surface); padding: 1px 5px; border-radius: 4px; }
+
+@media (max-width: 760px) {
+  .app-body { flex-direction: column; }
+  .sidebar { width: 100%; height: 50%; border-right: 0; border-bottom: 1px solid var(--line); }
+  /* On phones the details replace the list inside the panel, so the map stays fully visible */
+  .info { position: absolute; inset: 0; z-index: 3; max-height: none; border-top: 0; align-content: start; }
+  .brand-sub { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation-duration: 2.4s; }
+}
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+  <header class="app-header">
+    <div class="mark" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 9.5 12 4l9 5.5"/><path d="M4 20h16"/><path d="M6 11v6M10 11v6M14 11v6M18 11v6"/></svg>
+    </div>
+    <div class="brand">
+      <div class="brand-title">Ijtimoiy himoya bo'limlari</div>
+      <div class="brand-sub">Namangan viloyati · Yandex xarita ma'lumotlari</div>
+    </div>
+  </header>
+
+  <div class="app-body">
+    <aside class="sidebar">
+      <div class="side-top">
+        <label class="search" for="q">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><path d="m20.5 20.5-4.2-4.2"/></svg>
+          <input id="q" type="search" placeholder="Nomi yoki manzil bo'yicha qidirish" autocomplete="off">
+        </label>
+        <select class="select" id="district" aria-label="Tuman"></select>
+        <div class="status" id="status-text"></div>
+      </div>
+
+      <div class="list" id="list" aria-live="polite"></div>
+
+      <section class="info" id="info" hidden>
+        <div class="info-head">
+          <h2 id="info-name"></h2>
+          <button class="info-close" id="info-close" type="button" aria-label="Yopish">×</button>
+        </div>
+        <div class="info-cat" id="info-cat"></div>
+        <dl class="info-rows">
+          <div><dt>Manzil</dt><dd id="info-addr"></dd></div>
+          <div id="row-phone"><dt>Telefon</dt><dd id="info-phone"></dd></div>
+          <div id="row-hours"><dt>Ish vaqti</dt><dd id="info-hours"></dd></div>
+          <div id="row-site"><dt>Sayt</dt><dd><a id="info-site" target="_blank" rel="noopener"></a></dd></div>
+        </dl>
+        <div class="info-actions">
+          <a class="btn btn-ghost btn-block" id="info-route" target="_blank" rel="noopener">Yo'nalish</a>
+          <a class="btn btn-primary btn-block" id="info-ymaps" target="_blank" rel="noopener">Yandex Xaritada</a>
+        </div>
+      </section>
+    </aside>
+
+    <div class="map-area">
+      <div class="map-msg" id="map-msg">
+        <div class="map-msg-box"><div class="spinner lg"></div><p class="muted">Xarita yuklanmoqda…</p></div>
+      </div>
+      <div id="ymap"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+'use strict';
+
+const REGION_CENTER = [41.0, 71.55];
+// Keeps only results whose name or category is about social protection
+const RELEVANT = /himoya|химоя|социальн[а-я]*защит|защит[а-я]*населен|социальн[а-я]*служб|социальн[а-я]*услуг|инсон|inson|ijtimoiyxizmat|ижтимоийхизмат/;
+
+// Display order. Matching also runs in this order, so "Yangi Namangan" is tested before "Namangan tumani".
+const DISTRICTS = [
+  { id: 'city',          name: 'Namangan shahri',              stems: [] },
+  { id: 'davlatobod',    name: 'Davlatobod tumani (Namangan sh.)', stems: ['davlatobod', 'давлатобод', 'давлатабад'] },
+  { id: 'yanginamangan', name: 'Yangi Namangan tumani',        stems: ['yanginamangan', 'янгинаманган', 'новыйнаманган'] },
+  { id: 'namangantuman', name: 'Namangan tumani',              stems: ['namangantumani', 'намангантумани', 'наманганскийрайон', 'toshbuloq', 'ташбулак', 'тошбулок'] },
+  { id: 'chortoq',       name: "Chortoq tumani",               stems: ['chortoq', 'chartak', 'чорток', 'чартак'] },
+  { id: 'chust',         name: 'Chust tumani',                 stems: ['chust', 'чуст'] },
+  { id: 'kosonsoy',      name: 'Kosonsoy tumani',              stems: ['kosonsoy', 'kasansay', 'косонсой', 'касансай'] },
+  { id: 'mingbuloq',     name: 'Mingbuloq tumani',             stems: ['mingbuloq', 'mingbulak', 'мингбулок', 'мингбулак', 'jomasho', 'jomashu', 'jumashu', 'джумашу', 'жумашу'] },
+  { id: 'norin',         name: 'Norin tumani',                 stems: ['norin', 'naryn', 'норин', 'нарын', 'haqqulobod', 'хаккулабад', 'хаккулобод'] },
+  { id: 'pop',           name: 'Pop tumani',                   stems: ['poptumani', 'поптумани', 'папский'], re: /(^|[^a-zа-я])(pop|пап|поп)([^a-zа-я]|$)/ },
+  { id: 'toraqorgon',    name: "To'raqo'rg'on tumani",         stems: ['toraqorgon', 'turakurgan', 'туракурган', 'туракургон'] },
+  { id: 'uchqorgon',     name: "Uchqo'rg'on tumani",           stems: ['uchqorgon', 'uchkurgan', 'учкурган', 'учкургон'] },
+  { id: 'uychi',         name: 'Uychi tumani',                 stems: ['uychi', 'уйчи'] },
+  { id: 'yangiqorgon',   name: "Yangiqo'rg'on tumani",         stems: ['yangiqorgon', 'yangikurgan', 'янгикурган', 'янгикургон'] },
+  { id: 'other',         name: 'Tumani aniqlanmagan',          stems: [] }
+];
+const DIST_INDEX = Object.fromEntries(DISTRICTS.map((d, i) => [d.id, i]));
+const DIST_NAME = Object.fromEntries(DISTRICTS.map(d => [d.id, d.name]));
+
+/* ───────── Small helpers ───────── */
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+function norm(s) {
+  return String(s || '').toLowerCase()
+    .replace(/[ʻʼ'’‘`]/g, '')
+    .replace(/ў/g, 'у').replace(/қ/g, 'к').replace(/ғ/g, 'г').replace(/ҳ/g, 'х').replace(/ё/g, 'е');
+}
+const squash = s => s.replace(/[\s\-–—.]/g, '');
+const routeUrl = it => `https://yandex.uz/maps/?rtext=~${it.lat},${it.lon}&rtt=auto`;
+const orgUrl = it => /^\d+$/.test(it.id) ? `https://yandex.uz/maps/?oid=${it.id}&ol=biz` : `https://yandex.uz/maps/?pt=${it.lon},${it.lat}&z=17&l=map`;
+const telHref = p => 'tel:' + p.replace(/[^\d+]/g, '');
+function fmtTime(ts) {
+  const d = new Date(ts), p = n => String(n).padStart(2, '0');
+  return `${p(d.getDate())}.${p(d.getMonth() + 1)}.${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}`;
+}
+async function getJson(url) {
+  const res = await fetch(url, { headers: { Accept: 'application/json' } });
+  let body = null;
+  try { body = await res.json(); } catch {}
+  return { status: res.status, ok: res.ok, body };
+}
+
+/* ───────── Address → district ───────── */
+// Only the administrative part of an address is checked (everything before the street),
+// so a "Chust ko'chasi" inside Namangan city does not get filed under Chust tumani.
+const STREET_RE = /(улиц|кучас|kuchas|kochas|проспект|prospekt|переулок|проезд|массив|mavze|мавзе|махалл|mahall|\d)/;
+function adminParts(address) {
+  const out = [];
+  for (const raw of String(address || '').split(',')) {
+    const p = norm(raw).trim();
+    if (!p) continue;
+    if (STREET_RE.test(p)) break;
+    out.push(p);
+  }
+  return out;
+}
+function districtOf(address) {
+  const parts = adminParts(address);
+  for (const d of DISTRICTS) {
+    if (!d.stems.length && !d.re) continue;
+    for (const p of parts) {
+      const s = squash(p);
+      if (d.stems.some(st => s.includes(st)) || (d.re && d.re.test(p))) return d.id;
+    }
+  }
+  const cityNames = ['наманган', 'namangan', 'namanganshahri', 'namanganshahar', 'городнаманган'];
+  if (parts.some(p => cityNames.includes(squash(p)))) return 'city';
+  return null;
+}
+const mentionsNamangan = address => adminParts(address).some(p => /наманган|namangan/.test(p));
+
+function collect(features) {
+  const byId = new Map();
+  for (const f of features || []) {
+    const p = f.properties || {};
+    const m = p.CompanyMetaData;
+    const c = f.geometry && f.geometry.coordinates;
+    if (!m || !c || typeof c[1] !== 'number') continue;
+    const [lon, lat] = c;
+    const id = String(m.id || `${lat.toFixed(5)},${lon.toFixed(5)}`);
+    if (byId.has(id)) continue;
+    const it = {
+      id, lat, lon,
+      name: m.name || p.name || '',
+      address: m.address || p.description || '',
+      phones: (m.Phones || []).map(x => x.formatted).filter(Boolean),
+      hours: (m.Hours && m.Hours.text) || '',
+      url: m.url || '',
+      cats: (m.Categories || []).map(x => x.name).filter(Boolean)
+    };
+    if (!RELEVANT.test(squash(norm(it.name + ' ' + it.cats.join(' '))))) continue;
+    const dist = districtOf(it.address) || districtOf(p.description);
+    if (!dist && !mentionsNamangan(it.address) && !mentionsNamangan(p.description)) continue;   // outside the region
+    it.district = dist || 'other';
+    byId.set(id, it);
+  }
+  return [...byId.values()].sort((a, b) =>
+    (DIST_INDEX[a.district] - DIST_INDEX[b.district]) || a.name.localeCompare(b.name));
+}
+
+function describeError(status) {
+  if (status === 403) return "Yandex qidiruv kaliti noto'g'ri yoki hali faollashmagan.";
+  if (status === 429) return "Yandex so'rovlar limiti tugadi. Keyinroq qayta urinib ko'ring.";
+  return "Bo'limlar ro'yxatini Yandex'dan olib bo'lmadi. Keyinroq qayta urinib ko'ring.";
+}
+
+/* ───────── State ───────── */
+const state = { items: [], status: 'loading', error: '', fetchedAt: 0, district: 'all', q: '', selectedId: null };
+
+function visibleItems() {
+  const q = squash(norm(state.q));
+  return state.items.filter(it =>
+    (state.district === 'all' || it.district === state.district) &&
+    (!q || squash(norm(it.name + ' ' + it.address)).includes(q)));
+}
+
+async function loadOffices() {
+  state.status = 'loading'; renderAll(false);
+  let r;
+  try { r = await getJson('/api/offices'); }
+  catch { r = { status: 0, ok: false, body: null }; }
+  if (r.ok && r.body && Array.isArray(r.body.features)) {
+    state.items = collect(r.body.features);
+    state.fetchedAt = r.body.fetchedAt || Date.now();
+    state.status = 'ok';
+  } else if (r.status === 503 && r.body && r.body.error === 'nokey') {
+    state.status = 'nokey';
+  } else {
+    state.status = 'error';
+    state.error = describeError(r.body && r.body.status);
+  }
+  renderAll(true);
+}
+
+/* ───────── Sidebar rendering ───────── */
+const listEl = $('list'), selectEl = $('district'), statusEl = $('status-text');
+
+function renderSelect() {
+  const counts = {};
+  for (const it of state.items) counts[it.district] = (counts[it.district] || 0) + 1;
+  const showCounts = state.status === 'ok';
+  const opts = [`<option value="all">Barcha tumanlar${showCounts ? ` (${state.items.length})` : ''}</option>`];
+  for (const d of DISTRICTS) {
+    if (d.id === 'other' && !counts.other) continue;
+    opts.push(`<option value="${d.id}">${esc(d.name)}${showCounts ? ` (${counts[d.id] || 0})` : ''}</option>`);
+  }
+  selectEl.innerHTML = opts.join('');
+  selectEl.value = state.district;
+  if (selectEl.value !== state.district) { state.district = 'all'; selectEl.value = 'all'; }
+}
+
+function renderStatus() {
+  const text = {
+    ok: `Yandex ma'lumotlari: ${state.items.length} ta bo'lim · ${fmtTime(state.fetchedAt)} holatiga`,
+    loading: "Yandex'dan qidirilmoqda…",
+    nokey: "Bo'limlar ro'yxati sozlanmagan",
+    error: "Ro'yxatni yuklashda xato"
+  };
+  statusEl.textContent = text[state.status] || '';
+}
+
+function renderList() {
+  if (state.status === 'nokey') {
+    listEl.innerHTML = `<div class="notice">
+      <p>Bo'limlar ro'yxati hozircha mavjud emas. Xaritadagi qidiruv maydoniga «Ijtimoiy himoya» deb yozib izlashingiz mumkin.</p>
+      <p class="muted">Sayt egasi uchun: Vercel loyiha sozlamalarida <code>YANDEX_SEARCH_KEY</code> o'zgaruvchisini qo'shing va saytni qayta joylang.</p></div>`;
+    return;
+  }
+  if (state.status === 'loading') {
+    listEl.innerHTML = `<div class="notice"><div class="loading-row"><div class="spinner"></div><span>Namangan viloyati bo'yicha qidirilmoqda…</span></div></div>`;
+    return;
+  }
+  if (state.status === 'error') {
+    listEl.innerHTML = `<div class="notice error"><p>${esc(state.error)}</p>
+      <button class="btn btn-primary" type="button" data-action="retry">Qayta urinish</button></div>`;
+    return;
+  }
+  const items = visibleItems();
+  if (!items.length) {
+    const where = state.district === 'all' ? 'Namangan viloyatida' : `${DIST_NAME[state.district]} hududida`;
+    listEl.innerHTML = `<div class="notice"><p>${esc(where)} Yandex xaritada ijtimoiy himoya bo'limi topilmadi${state.q ? ' (qidiruv bo\'yicha)' : ''}.</p>
+      <p class="muted">Yandex bazasida bo'lim boshqa nom bilan yozilgan bo'lishi mumkin. Xaritani yaqinlashtirib, binolarni tekshirib ko'ring.</p></div>`;
+    return;
+  }
+  const html = [];
+  let current = null;
+  for (const it of items) {
+    if (it.district !== current) {
+      current = it.district;
+      const n = items.filter(x => x.district === current).length;
+      html.push(`<div class="group-h">${esc(DIST_NAME[current])}<span>${n}</span></div>`);
+    }
+    html.push(`<button type="button" class="office${it.id === state.selectedId ? ' active' : ''}" data-id="${esc(it.id)}">
+      <span class="office-name">${esc(it.name)}</span>
+      <span class="office-addr">${esc(it.address)}</span>
+      ${it.phones.length ? `<span class="office-phone">${esc(it.phones[0])}</span>` : ''}
+    </button>`);
+  }
+  listEl.innerHTML = html.join('');
+}
+
+function renderAll(fit) {
+  renderSelect();
+  renderStatus();
+  renderList();
+  renderMarkers(fit);
+}
+
+listEl.addEventListener('click', e => {
+  if (e.target.closest('[data-action="retry"]')) { loadOffices(); return; }
+  const btn = e.target.closest('.office');
+  if (btn) selectOffice(btn.dataset.id, false);
+});
+selectEl.addEventListener('change', () => { state.district = selectEl.value; renderList(); renderMarkers(true); });
+$('q').addEventListener('input', e => { state.q = e.target.value; renderList(); renderMarkers(true); });
+
+/* ───────── Details panel ───────── */
+function showInfo(it) {
+  $('info-name').textContent = it.name;
+  $('info-cat').textContent = [DIST_NAME[it.district], ...it.cats.slice(0, 2)].join(' · ');
+  $('info-addr').textContent = it.address || '—';
+  $('row-phone').hidden = !it.phones.length;
+  $('info-phone').innerHTML = it.phones.map(p => `<a href="${esc(telHref(p))}">${esc(p)}</a>`).join('<br>');
+  $('row-hours').hidden = !it.hours;
+  $('info-hours').textContent = it.hours;
+  $('row-site').hidden = !it.url;
+  const site = $('info-site');
+  site.textContent = it.url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+  site.href = /^https?:\/\//.test(it.url) ? it.url : 'https://' + it.url;
+  $('info-route').href = routeUrl(it);
+  $('info-ymaps').href = orgUrl(it);
+  $('info').hidden = false;
+}
+function closeInfo() {
+  state.selectedId = null;
+  $('info').hidden = true;
+  listEl.querySelectorAll('.office.active').forEach(el => el.classList.remove('active'));
+  updatePresets();
+}
+$('info-close').addEventListener('click', closeInfo);
+
+function selectOffice(id, fromMap) {
+  const it = state.items.find(x => x.id === id);
+  if (!it) return;
+  state.selectedId = id;
+  listEl.querySelectorAll('.office').forEach(el => el.classList.toggle('active', el.dataset.id === id));
+  const row = listEl.querySelector(`.office[data-id="${CSS.escape(id)}"]`);
+  if (row) row.scrollIntoView({ block: 'nearest' });
+  showInfo(it);
+  updatePresets();
+  if (map && !fromMap) {
+    map.setCenter([it.lat, it.lon], Math.max(map.getZoom(), 15), { duration: 300 }).then(() => {
+      const pm = placemarks.get(id);
+      if (pm && clusterer && !clusterer.getObjectState(pm).isClustered) pm.balloon.open();
+    }, () => {});
+  }
+}
+
+/* ───────── Yandex map ───────── */
+let map = null, clusterer = null;
+const placemarks = new Map();
+
+function loadYandexScript(key) {
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'https://api-maps.yandex.ru/2.1/?apikey=' + encodeURIComponent(key) + '&lang=ru_RU';
+    s.onload = () => (window.ymaps ? ymaps.ready(resolve, reject) : reject(new Error('ymaps missing')));
+    s.onerror = () => reject(new Error('load failed'));
+    document.head.appendChild(s);
+  });
+}
+
+function initMap(withSearchControl) {
+  const controls = ['zoomControl', 'typeSelector', 'fullscreenControl', 'geolocationControl'];
+  if (withSearchControl) controls.push('searchControl');
+  map = new ymaps.Map('ymap', { center: REGION_CENTER, zoom: 9, controls });
+  clusterer = new ymaps.Clusterer({ preset: 'islands#blueClusterIcons', groupByCoordinates: false });
+  map.geoObjects.add(clusterer);
+  $('map-msg').hidden = true;
+  renderMarkers(true);
+}
+
+function showMapMessage(title, detail) {
+  $('map-msg').hidden = false;
+  $('map-msg').innerHTML = `<div class="map-msg-box"><p class="title">${title}</p><p class="muted">${detail}</p></div>`;
+}
+
+function balloonBody(it) {
+  const rows = [esc(it.address)];
+  if (it.phones.length) rows.push(it.phones.map(esc).join(', '));
+  if (it.hours) rows.push(`<span style="color:#5B6B7F">${esc(it.hours)}</span>`);
+  return `<div style="font:13px/1.5 system-ui,-apple-system,sans-serif;max-width:260px">${rows.join('<br>')}</div>`;
+}
+
+function renderMarkers(fit) {
+  if (!map || !clusterer) return;
+  clusterer.removeAll();
+  placemarks.clear();
+  const items = state.status === 'ok' ? visibleItems() : [];
+  const marks = items.map(it => {
+    const pm = new ymaps.Placemark([it.lat, it.lon], {
+      hintContent: esc(it.name),
+      clusterCaption: esc(it.name),
+      balloonContentHeader: esc(it.name),
+      balloonContentBody: balloonBody(it),
+      balloonContentFooter: `<a href="${routeUrl(it)}" target="_blank" rel="noopener">Yo'nalish olish</a>`
+    }, { preset: it.id === state.selectedId ? 'islands#orangeDotIcon' : 'islands#blueDotIcon' });
+    pm.events.add('click', () => selectOffice(it.id, true));
+    placemarks.set(it.id, pm);
+    return pm;
+  });
+  if (marks.length) clusterer.add(marks);
+  if (!fit) return;
+  if (marks.length === 1) {
+    map.setCenter([items[0].lat, items[0].lon], 15, { duration: 300 });
+  } else if (marks.length > 1) {
+    map.setBounds(clusterer.getBounds(), { checkZoomRange: true, zoomMargin: 40, duration: 300 });
+  } else {
+    map.setCenter(REGION_CENTER, 9, { duration: 300 });
+  }
+}
+
+function updatePresets() {
+  for (const [id, pm] of placemarks) pm.options.set('preset', id === state.selectedId ? 'islands#orangeDotIcon' : 'islands#blueDotIcon');
+}
+
+/* ───────── Boot ───────── */
+async function start() {
+  renderAll(false);
+  let config = null;
+  try {
+    const r = await getJson('/api/config');
+    if (r.ok) config = r.body;
+  } catch {}
+
+  if (!config) {
+    showMapMessage('Sayt sozlamalari topilmadi', "Bu sahifa Vercel'ga joylangan holda ishlaydi. Faylni to'g'ridan-to'g'ri ochish o'rniga sayt manzili orqali oching.");
+    state.status = 'error'; state.error = "Sayt sozlamalarini yuklab bo'lmadi.";
+    renderAll(false);
+    return;
+  }
+
+  if (config.jsKey) {
+    loadYandexScript(config.jsKey)
+      .then(() => initMap(!config.search))
+      .catch(() => showMapMessage('Xarita yuklanmadi',
+        "Yandex JavaScript API kaliti noto'g'ri, hali faollashmagan yoki kalit sozlamalarida bu sayt manzili (HTTP Referer) qo'shilmagan."));
+  } else {
+    showMapMessage('Xarita sozlanmagan', "Sayt egasi uchun: Vercel loyiha sozlamalarida <code>YANDEX_JS_KEY</code> o'zgaruvchisini qo'shing va saytni qayta joylang.");
+  }
+  loadOffices();
+}
+start();
+})();
+</script>
+</body>
+</html>
