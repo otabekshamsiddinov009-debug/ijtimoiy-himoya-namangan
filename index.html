@@ -406,7 +406,8 @@ function normalizeServices(data) {
       id: String(s.id), name: String(s.name), short: String(s.short || s.name),
       color: COLOR_HEX[s.color] ? s.color : 'green', description: String(s.description || '')
     }));
-  const known = new Set(services.map(s => s.id));
+  // "office" lets a hand-entered location join the "Inson" layer alongside the Yandex results
+  const known = new Set([...services.map(s => s.id), 'office']);
   const items = [];
   (Array.isArray(data.locations) ? data.locations : []).forEach((l, i) => {
     if (!l || !known.has(l.service)) return;
@@ -415,7 +416,7 @@ function normalizeServices(data) {
     const phones = Array.isArray(l.phones) ? l.phones : (l.phone ? [l.phone] : []);
     items.push({
       id: 'svc-' + i, type: l.service, lat, lon,
-      name: String(l.name || services.find(s => s.id === l.service).name),
+      name: String(l.name || (services.find(s => s.id === l.service) || OFFICE_TYPE).name),
       address: String(l.address || ''),
       phones: phones.map(String).filter(Boolean),
       hours: String(l.hours || ''),
@@ -548,11 +549,12 @@ function renderSelect() {
 
 function renderStatus() {
   const o = state.offices, parts = [];
-  if (o.status === 'ok') parts.push(`\"Inson\" markazlari: ${o.items.length} (Yandex, ${fmtTime(o.fetchedAt)})`);
+  const manualOffices = state.services.items.filter(i => i.type === 'office').length;
+  if (o.status === 'ok') parts.push(`\"Inson\" markazlari: ${o.items.length + manualOffices} (Yandex, ${fmtTime(o.fetchedAt)})`);
   else if (o.status === 'loading') parts.push("\"Inson\" markazlari qidirilmoqda…");
   else if (o.status === 'nokey') parts.push("\"Inson\" markazlari ro'yxati sozlanmagan");
   else parts.push("\"Inson\" markazlari yuklanmadi");
-  if (state.services.status === 'ok') parts.push(`Xizmatlar: ${state.services.items.length} ta manzil`);
+  if (state.services.status === 'ok') parts.push(`Xizmatlar: ${state.services.items.length - manualOffices} ta manzil`);
   else if (state.services.status === 'error') parts.push('Xizmatlar yuklanmadi');
   statusEl.textContent = parts.join(' · ');
 }

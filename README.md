@@ -30,7 +30,7 @@ The services (Kunduzgi parvarish, Erta aralashuv, Yangi kun, Tizim tashkilotlari
 }
 ```
 
-`service` must be one of the service `id`s at the top of the file. `lat`/`lon` are required (copy them from Yandex Maps). `district` is optional; without it the district is read from the address. District ids: `city`, `davlatobod`, `yanginamangan`, `namangantuman`, `chortoq`, `chust`, `kosonsoy`, `mingbuloq`, `norin`, `pop`, `toraqorgon`, `uchqorgon`, `uychi`, `yangiqorgon`. A service's `description` (one sentence) is shown in the details panel when it is filled in.
+`service` must be one of the service `id`s at the top of the file, or `office` to add a hand-entered location to the "Inson" layer. `lat`/`lon` are required (copy them from Yandex Maps). `district` is optional; without it the district is read from the address. District ids: `city`, `davlatobod`, `yanginamangan`, `namangantuman`, `chortoq`, `chust`, `kosonsoy`, `mingbuloq`, `norin`, `pop`, `toraqorgon`, `uchqorgon`, `uychi`, `yangiqorgon`. A service's `description` (one sentence) is shown in the details panel when it is filled in.
 
 ## Correcting Yandex entries
 
