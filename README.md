@@ -51,6 +51,8 @@ Inson centres come from Yandex. To change or remove one on the site (Yandex itse
 
 An `edit` can also set `phones` (a list), `hours`, `district` (an id from the list above) and `lat`/`lon` to move the pin. Anything not set keeps Yandex's value.
 
+`"showYandex": false` (currently set) turns the Yandex results off entirely: the "Inson" layer then shows only the hand-entered `office` locations from `data/services.json`, and Yandex is not queried. Set it to `true` to bring the Yandex results back with the `hide`/`edit` corrections applied.
+
 ## How it works
 
 - `index.html` — the page.

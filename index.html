@@ -443,11 +443,13 @@ const state = {
 // Owner's corrections to Yandex entries (data/overrides.json): "hide" removes an entry,
 // "edit" replaces its name / address / phones / hours / district / map point.
 // Entries are matched by their Yandex name + address.
-let HIDE = [], EDITS = [];
+// "showYandex": false turns the Yandex results off, leaving only hand-entered entries in the layer.
+let HIDE = [], EDITS = [], SHOW_YANDEX = true;
 const matchKey = (name, address) => ({ name: squash(norm(name)), address: squash(norm(address || '')) });
 const matchesKey = (it, k) => squash(norm(it.name)) === k.name && (!k.address || squash(norm(it.address)).includes(k.address));
 const overridesReady = getJson('/data/overrides.json').then(r => {
   const b = (r.ok && r.body) || {};
+  SHOW_YANDEX = b.showYandex !== false;
   HIDE = (Array.isArray(b.hide) ? b.hide : []).filter(h => h && h.name).map(h => matchKey(h.name, h.address));
   EDITS = (Array.isArray(b.edit) ? b.edit : []).filter(e => e && e.match && e.match.name)
     .map(e => ({ key: matchKey(e.match.name, e.match.address), set: e }));
@@ -481,10 +483,15 @@ function visibleItems() {
 async function loadOffices() {
   const o = state.offices;
   o.status = 'loading'; renderAll(false);
+  await overridesReady;
+  if (!SHOW_YANDEX) {
+    o.items = []; o.status = 'ok'; o.yandexOff = true;
+    rebuild(); renderAll(true);
+    return;
+  }
   let r;
   try { r = await getJson('/api/offices'); }
   catch { r = { status: 0, ok: false, body: null }; }
-  await overridesReady;
   if (r.ok && r.body && Array.isArray(r.body.features)) {
     o.items = collectOffices(r.body.features);
     o.fetchedAt = r.body.fetchedAt || Date.now();
@@ -550,7 +557,8 @@ function renderSelect() {
 function renderStatus() {
   const o = state.offices, parts = [];
   const manualOffices = state.services.items.filter(i => i.type === 'office').length;
-  if (o.status === 'ok') parts.push(`\"Inson\" markazlari: ${o.items.length + manualOffices} (Yandex, ${fmtTime(o.fetchedAt)})`);
+  if (o.status === 'ok' && o.yandexOff) parts.push(`\"Inson\" markazlari: ${manualOffices}`);
+  else if (o.status === 'ok') parts.push(`\"Inson\" markazlari: ${o.items.length + manualOffices} (Yandex, ${fmtTime(o.fetchedAt)})`);
   else if (o.status === 'loading') parts.push("\"Inson\" markazlari qidirilmoqda…");
   else if (o.status === 'nokey') parts.push("\"Inson\" markazlari ro'yxati sozlanmagan");
   else parts.push("\"Inson\" markazlari yuklanmadi");

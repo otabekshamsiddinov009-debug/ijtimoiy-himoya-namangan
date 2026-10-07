@@ -1,15 +1,24 @@
 {
+  "showYandex": false,
   "hide": [
-    { "name": "Namangan shahri Inson Ijtimoiy xizmatlar markazi", "address": "Namangan, Xurriyat koʻchasi, 66" }
+    {
+      "name": "Namangan shahri Inson Ijtimoiy xizmatlar markazi",
+      "address": "Namangan, Xurriyat koʻchasi, 66"
+    }
   ],
   "edit": [
     {
-      "match": { "name": "Inson", "address": "Namangan, Beshkapa 4-tor koʻchasi, 9" },
+      "match": {
+        "name": "Inson",
+        "address": "Namangan, Beshkapa 4-tor koʻchasi, 9"
+      },
       "name": "Namangan shahar \"Inson\" ijtimoiy xizmatlar markazi",
       "address": "Namangan shahri, Baynalninal MFY, Nodira ko'chasi 9-uy"
     },
     {
-      "match": { "name": "Inson Uychin tumanining ijtimoiy xizmatlar markazi" },
+      "match": {
+        "name": "Inson Uychin tumanining ijtimoiy xizmatlar markazi"
+      },
       "name": "Uychi tuman \"Inson\" ijtimoiy xizmatlar markazi"
     }
   ]
