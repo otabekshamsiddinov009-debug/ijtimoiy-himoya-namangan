@@ -54,6 +54,20 @@
     {"service": "erta-aralashuv", "name": "\"Кушон уруғлари\" МЧЖ", "address": "Наманган вилояти, Косонсой тумани", "lat": 41.206443, "lon": 71.53855, "district": "kosonsoy"},
     {"service": "erta-aralashuv", "name": "\"Соғлом ҳаётга қадам ёшлик баҳори\" МЧЖ", "address": "Наманган вилояти, Янги Наманган тумани", "lat": 41.044255, "lon": 71.627861, "district": "yanginamangan"},
     {"service": "erta-aralashuv", "name": "\"Фирдавс лого сентр\" МЧЖ", "address": "Наманган вилояти, Давлатобод тумани", "lat": 41.000551, "lon": 71.608745, "district": "davlatobod"},
-    {"service": "office", "name": "Ижтимоий ҳимоя миллий агентлигининг Наманган вилояти бошқармаси", "address": "Namangan shahri, Baynalninal MFY, Nodira ko'chasi 9-uy", "lat": 40.993388, "lon": 71.66867, "district": "city"}
+    {"service": "office", "name": "Ижтимоий ҳимоя миллий агентлигининг Наманган вилояти бошқармаси", "address": "Namangan shahri, Baynalninal MFY, Nodira ko'chasi 9-uy", "lat": 40.993388, "lon": 71.66867, "district": "city"},
+    {"service": "office", "name": "Мингбулоқ тумани \"Инсон\" ижтимоий хизматлар маркази", "address": "Наманган вилояти, Мингбулоқ тумани", "lat": 40.861523, "lon": 71.458674, "district": "mingbuloq"},
+    {"service": "office", "name": "Давлатобод тумани \"Инсон\" ижтимоий хизматлар маркази", "address": "Наманган вилояти, Давлатобод тумани", "lat": 41.010715, "lon": 71.566535, "district": "davlatobod"},
+    {"service": "office", "name": "Чортоқ тумани \"Инсон\" ижтимоий хизматлар маркази", "address": "Наманган вилояти, Чортоқ тумани", "lat": 41.077873, "lon": 71.813178, "district": "chortoq"},
+    {"service": "office", "name": "Уйчи тумани \"Инсон\" ижтимоий хизматлар маркази", "address": "Наманган вилояти, Уйчи тумани", "lat": 41.026667, "lon": 71.853337, "district": "uychi"},
+    {"service": "office", "name": "Поп тумани \"Инсон\" ижтимоий хизматлар маркази", "address": "Наманган вилояти, Поп тумани", "lat": 40.874529, "lon": 71.095596, "district": "pop"},
+    {"service": "office", "name": "Тўрақўрғон тумани \"Инсон\" ижтимоий хизматлар маркази", "address": "Наманган вилояти, Тўрақўрғон тумани", "lat": 41.004222, "lon": 71.511883, "district": "toraqorgon"},
+    {"service": "office", "name": "Чуст тумани \"Инсон\" ижтимоий хизматлар маркази", "address": "Наманган вилояти, Чуст тумани", "lat": 40.998033, "lon": 71.230994, "district": "chust"},
+    {"service": "office", "name": "Косонсой тумани \"Инсон\" ижтимоий хизматлар маркази", "address": "Наманган вилояти, Косонсой тумани", "lat": 41.241405, "lon": 71.549147, "district": "kosonsoy"},
+    {"service": "office", "name": "Учқўрғон тумани \"Инсон\" ижтимоий хизматлар маркази", "address": "Наманган вилояти, Учқўрғон тумани", "lat": 41.113147, "lon": 72.077934, "district": "uchqorgon"},
+    {"service": "office", "name": "Наманган шаҳар \"Инсон\" ижтимоий хизматлар маркази", "address": "Namangan shahri, Baynalninal MFY, Nodira ko'chasi 9-uy", "lat": 40.993253, "lon": 71.668768, "district": "city"},
+    {"service": "office", "name": "Янгиқўрғон тумани \"Инсон\" ижтимоий хизматлар маркази", "address": "Наманган вилояти, Янгиқўрғон тумани", "lat": 41.193279, "lon": 71.726397, "district": "yangiqorgon"},
+    {"service": "office", "name": "Янги Наманган тумани \"Инсон\" ижтимоий хизматлар маркази", "address": "Наманган вилояти, Янги Наманган тумани", "lat": 41.028145, "lon": 71.637987, "district": "yanginamangan"},
+    {"service": "office", "name": "Наманган тумани \"Инсон\" ижтимоий хизматлар маркази", "address": "Наманган вилояти, Наманган тумани", "lat": 40.922658, "lon": 71.582182, "district": "namangantuman"},
+    {"service": "office", "name": "Норин тумани \"Инсон\" ижтимоий хизматлар маркази", "address": "Наманган вилояти, Норин тумани", "lat": 40.915963, "lon": 72.105818, "district": "norin"}
   ]
 }
