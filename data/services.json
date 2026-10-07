@@ -73,6 +73,14 @@
     {"service": "kunduzgi-parvarish", "name": "\"Исомиддинова Матлуба Хусановна\" ЯТТ", "address": "Наманган вилояти, Поп тумани", "lat": 40.890509, "lon": 70.775295, "district": "pop"},
     {"service": "kunduzgi-parvarish", "name": "\"Собирова Муҳтасар Қодиржон қизи\" ЯТТ", "address": "Наманган вилояти, Уйчи тумани", "lat": 40.960281, "lon": 71.780333, "district": "uychi"},
     {"service": "kunduzgi-parvarish", "name": "\"Турон 1988\" МЧЖ", "address": "Наманган вилояти, Янги Наманган тумани", "lat": 41.00428713, "lon": 71.64835425, "district": "yanginamangan"},
-    {"service": "kunduzgi-parvarish", "name": "\"Муминов Отабек Абдукаххарович\" ЯТТ", "address": "Наманган вилояти, Янгиқўрғон тумани", "lat": 41.067897, "lon": 71.664878, "district": "yangiqorgon"}
+    {"service": "kunduzgi-parvarish", "name": "\"Муминов Отабек Абдукаххарович\" ЯТТ", "address": "Наманган вилояти, Янгиқўрғон тумани", "lat": 41.067897, "lon": 71.664878, "district": "yangiqorgon"},
+    {"service": "erta-aralashuv", "name": "\"Baby makon\" МЧЖ", "address": "Наманган вилояти, Уйчи тумани", "lat": 41.02353, "lon": 71.850376, "district": "uychi"},
+    {"service": "erta-aralashuv", "name": "\"Жураева Гузал Обиджоновна\" ЯТТ", "address": "Наманган вилояти, Поп тумани", "lat": 40.88037, "lon": 71.107547, "district": "pop"},
+    {"service": "erta-aralashuv", "name": "\"Nargiza kids\" МЧЖ", "address": "Наманган вилояти, Янгиқўрғон тумани", "lat": 41.197698, "lon": 71.723919, "district": "yangiqorgon"},
+    {"service": "erta-aralashuv", "name": "\"Rayyon logo\" МЧЖ", "address": "Наманган вилояти, Наманган шаҳри", "lat": 40.989377, "lon": 71.6872, "district": "city"},
+    {"service": "erta-aralashuv", "name": "\"Muslima medical plus\" МЧЖ", "address": "Наманган вилояти, Чортоқ тумани", "lat": 41.061623, "lon": 71.788281, "district": "chortoq"},
+    {"service": "erta-aralashuv", "name": "\"Tiny steps academy\" МЧЖ", "address": "Наманган вилояти, Учқўрғон тумани", "lat": 41.021185, "lon": 72.096285, "district": "uchqorgon"},
+    {"service": "erta-aralashuv", "name": "\"Мўминова Ойдинабону Баҳром қизи\" ЯТТ", "address": "Наманган вилояти, Тўрақўрғон тумани", "lat": 41.001435, "lon": 71.516153, "district": "toraqorgon"},
+    {"service": "erta-aralashuv", "name": "\"Қурбонова Улмасхон Баходир қизи\" ЯТТ", "address": "Наманган вилояти, Учқўрғон тумани", "lat": 41.121888, "lon": 72.100149, "district": "uchqorgon"}
   ]
 }
